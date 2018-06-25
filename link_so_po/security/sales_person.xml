@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data noupdate="0">
+    <!--creating new group-->
+    <record id="group_commission" model="res.groups">
+        <field name="name">commission</field>
+    </record>
+
+</data>
+
+</openerp>

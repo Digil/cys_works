@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report string="custom report" id="sale_order_custom_report"
+                    model="sale.order"
+                    report_type="xlsx"
+                    name="custom_sale_report.report_custom_saleorder"
+                    file="custom_sale_report.report_custom_saleorder"
+                    menu = 'True'/>
+    </data>
+</openerp>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="custom_product_view">
+            <field name="model">product.template</field>
+            <field name="name">comm percentage add</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                    <xpath expr="//field[@name='route_ids']" position="after">
+                            <field name="commission_percentage"/>
+                    </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="custom_add_commission">
+            <field name="model">sale.order</field>
+            <field name="name">percentage add</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                    <xpath expr="//field[@name='partner_id']" position="after">
+                        <field name="commission"/>
+                    </xpath>
+
+                    <xpath expr="//field[@name='payment_term_id']" position="after">
+                        <button name="pay_commission" type="object" string="Pay Commission"/>
+                    </xpath>
+
+                     <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="after">
+                        <field name="commission_line"/>
+                    </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="custom_add_product">
+            <field name="model">res.company</field>
+            <field name="name">comm prod add</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                    <xpath expr="//field[@name='website']" position="after">
+                        <field name="commission_product"/>
+                    </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

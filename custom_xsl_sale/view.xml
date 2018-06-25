@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<openerp>
+    <data>
+        <report
+            id="custom_xslx_sale_report"
+            model="sale.order"
+            string="xlsx report"
+            report_type="xlsx"
+            name="custom_xsl_sale.sale_custom_report"
+            file="custom_xsl_sale.sale_custom_report"
+            attachment_use="False"/>
+    </data>
+</openerp>

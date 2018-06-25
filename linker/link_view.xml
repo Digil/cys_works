@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="sale_linker_custom">
+            <field name="name">sale.order.custom.form.inherited</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                    <xpath expr="//field[@name='partner_id']" position="after">
+                       <field name="project"/>
+                       <field name="contract_no"/>
+                    </xpath>
+                    <xpath expr="//page[@string='Other Information']" position="after">
+                        <page string="Related Purchase Orders">
+                            <field name="inh"/>
+                        </page>
+                    </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="sale_linker_custom_tree">
+            <field name="name">sale.order.custom.tree.inherited</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_quotation_tree"/>
+            <field name="arch" type="xml">
+                    <xpath expr="//field[@name='partner_id']" position="after">
+                       <field name="project"/>
+                       <field name="contract_no"/>
+                    </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="sale_linker_order_tree">
+            <field name="name">sale.order.custom.tree.inherited</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_tree"/>
+            <field name="arch" type="xml">
+                    <xpath expr="//field[@name='partner_id']" position="after">
+                       <field name="project"/>
+                       <field name="contract_no"/>
+                    </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="purchase_linker_custom">
+            <field name="name">purchase.order.custom.form.inherited</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_ref']" position="after">
+                    <field name="contract_num"/>
+                </xpath>
+                    <xpath expr="//field[@name='dest_address_id']" position="after">
+                        <field name="rel_sale_order"/>
+                    </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="purchase_linker_custom_tree">
+            <field name="name">purchase.order.custom.tree.inherited</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="contract_num"/>
+                    <field name="rel_sale_order"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

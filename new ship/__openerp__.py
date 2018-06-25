@@ -1,0 +1,16 @@
+{
+    'name': 'ship',
+    'summary': 'The ship module',
+    'version': '1.0.0',
+    'description': 'The Shipp Module',
+    'author': 'Digil',
+    'company': 'cybron',
+    'website': 'www.google.com',
+    'category': 'sales',
+    'depends': ['sale'],
+    'licence': 'AGPL-3',
+    'data': ['ship_view.xml'],
+    'demo': [],
+    'installable': True,
+    'auto_install': False,
+}

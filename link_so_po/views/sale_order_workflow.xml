@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+         <!--adding buttons to workflow-->
+        <record id="so_workflow_form" model="ir.ui.view">
+            <field name="name">sale_order_workflow.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                    <button name="action_button_confirm" position="before">
+                        <button name="check_order" states='draft' string="To Check"  type="workflow"/>
+                        <button name="checked_order" states='to_check' string="Checked"  type="workflow" />
+                        <button name="approved_order" states='checked' string="Approved"  type="workflow" />
+                    </button>
+              <button name="action_button_confirm" position="attributes">
+                        <attribute name="states">approved</attribute>
+                    </button>
+                 <!--adding status bar-->
+                    <field name="state" position="replace">
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="draft,to_check,checked,approved,sales_order,done"/>
+                    </field>
+            </field>
+        </record>
+        <!--workflow activities-->
+        <record id="act_quotation_tocheck" model="workflow.activity">
+            <field name="wkf_id" ref="sale.wkf_sale"/>
+            <field name="name">To check</field>
+            <field name="kind">function</field>
+            <field name="action">action_check_order()</field>
+        </record>
+
+        <record id="act_quotation_checked" model="workflow.activity">
+            <field name="wkf_id" ref="sale.wkf_sale"/>
+            <field name="name">Checked</field>
+            <field name="kind">function</field>
+            <field name="action">action_checked_order()</field>
+        </record>
+
+        <record id="act_approved_order" model="workflow.activity">
+            <field name="wkf_id" ref="sale.wkf_sale"/>
+            <field name="name">Approved</field>
+            <field name="kind">function</field>
+            <field name="action">action_approved_order()</field>
+        </record>
+
+       <record id="act_confirm_order" model="workflow.activity">
+            <field name="wkf_id" ref="sale.wkf_sale"/>
+            <field name="name">confirmed</field>
+            <field name="kind">function</field>
+            <field name="action">"action_button_confirm</field>
+        </record>
+
+        <!--transitions-->
+        <record id="trans_draft_to_tocheck" model="workflow.transition">
+            <field name="act_from" ref="sale.act_draft"/>
+            <field name="act_to" ref="act_quotation_tocheck"/>
+            <field name="signal">check_order</field>
+        </record>
+
+        <record id="trans_tocheck_to_checked" model="workflow.transition">
+            <field name="act_from" ref="act_quotation_tocheck"/>
+            <field name="act_to" ref="act_quotation_checked"/>
+            <field name="signal">checked_order</field>
+        </record>
+
+        <record id="trans_checked_to_approved" model="workflow.transition">
+            <field name="act_from" ref="act_quotation_checked"/>
+            <field name="act_to" ref="act_approved_order"/>
+            <field name="signal">approved_order</field>
+        </record>
+
+       <record id="trans_approved_to_so" model="workflow.transition">
+            <field name="act_from" ref="act_approved_order"/>
+            <field name="act_to" ref="sale.act_invoice"/>
+          <field name="signal">order_confirm</field>
+        </record>
+
+
+
+    </data>
+</openerp>

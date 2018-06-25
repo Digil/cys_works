@@ -1,0 +1,20 @@
+{
+    'name': 'Contractor',
+    'version': '8.0.1.0.0',
+    'summary': '',
+    'author': 'Digil',
+    'description': '''''',
+    'company': 'Cybron',
+    'website': 'www.google.com',
+    'category': 'sales',
+    'depends': ['sale', 'purchase', 'project'],
+    'licence': 'AGPL-3',
+    'data': ['views/view.xml', 'views/workflow.xml'],
+    'demo': [],
+    'sequence': '10',
+    'price': '100',
+    'currency': 'INR',
+    'installable': True,
+    'auto install': False,
+    'application': False
+}

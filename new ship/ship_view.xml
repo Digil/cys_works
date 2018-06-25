@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openerp>
+    <data>
+        <record model="ir.actions.act_window" id="ship_list_action">
+            <field name="name">Ships</field>
+            <field name="res_model">ship.ship</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create new ship details
+                </p>
+            </field>
+        </record>
+
+        <menuitem action="ship_list_action" id="ship_menu" name="Ships" parent="base.menu_base_config"/>
+
+        <record model="ir.ui.view" id="ship_form_view">
+            <field name="name">ship.form</field>
+            <field name="model">ship.ship</field>
+            <field name="arch" type="xml">
+                <form string="Ship Form">
+                    <sheet>
+                        <group>
+                            <field name="imo"/>
+                            <field name="hull_number"/>
+                            <field name="engine_number"/>
+                            <field name="vessel_name"/>
+                        </group>
+                        <group>
+                        <field name="build_year"/>
+                        <field name="ship_yard"/>
+                        <field name="ship_owner"/>
+                        <field name="ship_management"/>
+                        <field name="engine_builder"/>
+                    </group>
+                </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="ship_tree_view">
+            <field name="name">ship.tree</field>
+            <field name="model">ship.ship</field>
+            <field name="arch" type="xml">
+                <tree string="ship_tree">
+                    <field name="imo"/>
+                    <field name="vessel_name"/>
+                    <field name="build_year"/>
+                    <field name="ship_owner"/>
+                    <field name="ship_yard"/>
+                    <field name="engine_builder"/>
+                </tree>
+            </field>
+        </record>
+       <!-- <record model="ir.ui.view" id="ship.search">
+            <field name="name">ship.search</field>
+            <field name="model">ship.ship</field>
+            <field name="arch" type="xml">
+                <search string="ship_serach">
+                    <field name="imo"/>
+                    <field name="build_year"/>
+                </search>
+            </field>
+        </record>-->
+        <record id="view_sale_order_custom" model="ir.ui.view">
+            <field name="name">sale.order.custom.form.inherited</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                       <field name="sale_ship"/>
+                      <group>  <button string="Update" name="update_order_lines" type="object"/></group>
+                </xpath>
+            </field>
+            <field name="context">{'ship_id': sale_ship}</field>
+        </record>
+
+        <record id="view_sale_quotation_custom" model="ir.ui.view">
+            <field name="name">sale.order.custom.form.inherited</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_quotation_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree/field[@name='date_order']" position="after">
+                    <field name="sale_ship"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_sale_order_tree_custom" model="ir.ui.view">
+            <field name="name">sale.order.custom.form.inherited</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree/field[@name='date_order']" position="after">
+                    <field name="sale_ship"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_sale_order_form_custom" model="ir.ui.view">
+            <field name="name">sale.order.custom.form.inherited</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                      <xpath expr="//field[@name='order_line']" position="attributes">
+                        <attribute name="context">{'default_ship_line':sale_ship}</attribute>
+                      </xpath>
+                 <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="after">
+                    <field name="ship_line"/>
+                 </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

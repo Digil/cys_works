@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="inherit_partner_ledger" model="ir.ui.view">
+            <field name="name">inherited ledger</field>
+            <field name="model">account.report.partner.ledger</field>
+            <field name="inherit_id" ref="account.account_common_report_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='journal_ids']" position="before">
+                    <field name="filter_type" widget="radio"/>
+                    <field name="partner_tags" widget="many2many_tags"
+                           attrs="{'invisible':[('filter_type', '!=', 'partner_based')], 'visible':[('filter_type', '=', 'partner_based')]}"/>
+                    <field name="salesmen" widget="many2many_tags"
+                           attrs="{'invisible':[('filter_type', '!=', 'salesmen_based')], 'visible':[('filter_type', '=', 'salesmen_based')]}"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

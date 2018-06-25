@@ -1,0 +1,29 @@
+<odoo>
+  <data>
+      <record id="product_category_sale_line" model="ir.ui.view">
+          <field name="name">sale.orderline.inherited</field>
+          <field name="model">sale.order</field>
+          <field name="inherit_id" ref="sale.view_order_form"/>
+          <field name="arch" type="xml">
+          <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="after">
+               <field name="product_categ_id" onchange="category_checker(product_categ_id)"/>
+          </xpath>
+          </field>
+      </record>
+
+      <record id="custom_invoice_settings" model="ir.ui.view">
+          <field name="name">sale.settings.inherited</field>
+          <field name="model">sale.config.settings</field>
+          <field name="inherit_id" ref="sales_team.view_sale_config_settings"/>
+          <field name="arch" type="xml">
+            <xpath expr="//div[@id='main']" position="inside">
+                <group string="Invoicing">
+                    <field name="show_separate_invoice"/>
+                    <field name="journal_to_invoice"  domain="[('type', '=', 'sale')]"
+                           attrs="{'invisible':[('show_separate_invoice','=',False)],'required':[('show_separate_invoice','=',True)]}"/>
+                </group>
+            </xpath>
+          </field>
+      </record>
+  </data>
+</odoo>

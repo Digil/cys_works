@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="contract_custom">
+            <field name="name">sale.order.custom.form.inherited</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+                <field name="arch" type="xml">
+                    <xpath expr="//page[@string='Other Information']" position="after">
+                        <page string="Salesman Commission">
+                            <field name="commission_tab"/>
+                        </page>
+                    </xpath>
+                </field>
+        </record>
+
+        <record model="ir.ui.view" id="contract_tree">
+            <field name="name">sale.commission.tree</field>
+            <field name="model">related.commission</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="user_select"/>
+                    <field name="sales_value"/>
+                    <field name="sale_percent"/>
+                    <field name="sale_commission"/>
+                </tree>
+            </field>
+        </record>
+
+
+
+    </data>
+</openerp>

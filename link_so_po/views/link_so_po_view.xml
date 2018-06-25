@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!--adding related sale order and contract number in purchase order form view-->
+        <record id="link_so_po_form" model="ir.ui.view">
+           <field name="name">link_so_po.form</field>
+           <field name="model">purchase.order</field>
+           <field name="inherit_id" ref="purchase.purchase_order_form" />
+           <field name="arch" type="xml">
+               <xpath expr="//field[@name='partner_ref']" position="after">
+                   <field name="contracts_no" context="{'default_type':'contract_no'}"/>
+               </xpath>
+               <xpath expr="//field[@name='contracts_no']" position="before">
+                   <field name="ref_sale_order"  on_change="onchange_sale_order(ref_sale_order)" context="{}" type="object"/>
+               </xpath>
+           </field>
+
+        </record>
+        <!--adding purchase order  in sale order form view-->
+        <record id="view_related_po_form" model="ir.ui.view">
+   	        <field name="name">related_po.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <notebook position="inside">
+                <page string="Related Purchase Order">
+                    <field name="purchase_orders"/><!--related purchase order tab in sale order-->
+                </page>
+            </notebook>
+
+             </field>
+        </record>
+        <!--adding sales commission tab in saleorder form view-->
+        <record id="view_sales_commission" model="ir.ui.view" >
+            <field name="name">sales_commission.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+               <xpath expr="//page[@string='Other Information']" position='after'>
+                    <page string='Salesmen Commission' groups="link_so_po.group_commission"
+>
+                        <field name ='sales_commissions' />
+                    </page>
+                </xpath>
+            </field>
+        </record>
+        <!--creating tree view for sales commission tab-->
+        <record model="ir.ui.view" id="sales_commission_tree">
+            <field name="name">sales.commission.tree</field>
+            <field name="model">sales.commission</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="user" />
+                    <field name="percentage" />
+                    <field name="sales_value"  />
+                    <field name="commission" context="{'sales_value':sales_value,'percentage':percentage}"/>
+                </tree>
+            </field>
+        </record>
+        <!--adding saleorder and contract no in purchase order tree view-->
+        <record id="link_so_po_tree" model="ir.ui.view">
+           <field name="name">link_so_po.tree</field>
+           <field name="model">purchase.order</field>
+           <field name="inherit_id" ref="purchase.purchase_order_tree" />
+           <field name="arch" type="xml">
+               <xpath expr="//field[@name='date_order']" position="after">
+                   <field name="ref_sale_order" />
+               </xpath>
+               <xpath expr="//field[@name='ref_sale_order']" position="after">
+                   <field name="contracts_no" />
+               </xpath>
+        </field>
+        </record>
+    <!--window action for sale order workflow-->
+        <record id="sop_action_quotations" model="ir.actions.act_window">
+            <field name="name">sop_sale_orders</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="sale.view_quotation_tree"/>
+            <field name="view_mode">tree,form,calendar,graph</field>
+           <field name="context">{'search_default_my_sale_orders_filter': 1}</field>
+            <field name="domain">[('state','in',('check_order','checked_order','approve_order'))]</field>
+        </record>
+
+    </data>
+</openerp>

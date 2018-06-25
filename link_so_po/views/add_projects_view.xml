@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!--adding contract num and project details in form view-->
+     <record id="add_projects_form" model="ir.ui.view">
+           <field name="name">add_projects.form</field>
+           <field name="model">sale.order</field>
+           <field name="inherit_id" ref="sale.view_order_form" />
+           <field name="arch" type="xml">
+               <xpath expr="//field[@name='partner_shipping_id']" position="after">
+                   <field name="project" />
+               </xpath>
+               <xpath expr="//field[@name='project']" position="after">
+                   <field name="contract_no" />
+               </xpath>
+
+        </field>
+        </record>
+        <!--adding contract num and project details in tree view-->
+        <record id="add_projects_tree" model="ir.ui.view">
+           <field name="name">add_projects.tree</field>
+           <field name="model">sale.order</field>
+           <field name="inherit_id" ref="sale.view_order_tree" />
+           <field name="arch" type="xml">
+               <xpath expr="//field[@name='user_id']" position="after">
+                   <field name="project" />
+               </xpath>
+               <xpath expr="//field[@name='project']" position="after">
+                   <field name="contract_no" />
+               </xpath>
+        </field>
+        </record>
+    </data>
+
+</openerp>
